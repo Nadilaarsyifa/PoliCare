@@ -18,5 +18,5 @@ app.use("x", (req, res) =>{
 
 //start the server
 app.listen(PORT,() => {
-    console.log(` on port ${PORT}`);
+    console.log(`go on port ${PORT}`);
 });
