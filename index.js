@@ -1,22 +1,28 @@
-import  express from "express";
+import express from "express";
+import "dotenv/config";
+import { db } from './configs/db.js'; // Pastikan jalur impor benar
+import userRouter from "./routes/user.route.js";
 
 const app = express();
-const PORT = 5000;
+app.use(express.json());
+const PORT = process.env.PORT || 5000;
 
-app.get("/",(req, res) =>{
+app.use("/api/v1/users", userRouter);
+
+app.get("/", (req, res) => {
     res.status(200).json({
-        message: "Halo Dunia"
-    });
-} );
-
-//route/path
-app.use("x", (req, res) =>{
-    req.statusCode(404).json({
-        message:"not found"
+        message: "hello world"
     });
 });
 
-//start the server
-app.listen(PORT,() => {
-    console.log(`berhasil on port ${PORT}`);
+// Route/path untuk menangani 404
+app.use("*", (req, res) => {
+    res.status(404).json({
+        message: "not found"
+    });
+});
+
+// Start the server
+app.listen(PORT, () => {
+    console.log(`Server berhasil dijalankan pada port ${PORT}`);
 });
